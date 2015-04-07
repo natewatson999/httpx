@@ -1,0 +1,23 @@
+{
+  "name": "httpx",
+  "version": "0.0.0",
+  "description": "Provides a TLS-agnostic HTTP server and eliminates the redundancy in providing both secure and insecure servers.",
+  "main": "httpx.js",
+  "dependencies": {
+ },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "http",
+    "https",
+    "server",
+    "client",
+    "request",
+    "response",
+    "get"
+  ],
+  "author": "Nate Watson, as part of Team GOTO",
+  "license": "MIT"
+}
