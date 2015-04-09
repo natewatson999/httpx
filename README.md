@@ -91,3 +91,9 @@ Node-httpx provides http's status codes object:
 ```
 console.dir(httpx.STATUS_CODES);
 ```
+
+## httpx.request
+
+## httpx.get
+
+
