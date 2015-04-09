@@ -92,8 +92,17 @@ Node-httpx provides http's status codes object:
 console.dir(httpx.STATUS_CODES);
 ```
 
+## Specific Requests
+In addition to native request objects, node-httpx provides the request and get functions of the http and https modules. 
+
+| Function           | Treat As      | Documentation                                                          |
+|--------------------|---------------|------------------------------------------------------------------------|
+| httpx.httpRequest  | http.request  | https://nodejs.org/api/http.html#http_http_request_options_callback    |
+| httpx.httpGet      | http.get      | https://nodejs.org/api/http.html#http_http_get_options_callback        |
+| httpx.httpsRequest | https.request | https://nodejs.org/api/https.html#https_https_request_options_callback |
+| httpx.httpsGet     | https.get     | https://nodejs.org/api/https.html#https_https_get_options_callback     |
+
 ## httpx.request
 
 ## httpx.get
-
 
