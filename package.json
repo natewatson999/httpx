@@ -1,10 +1,9 @@
 {
-  "name": "httpx",
+  "name": "node-httpx",
   "version": "0.1.0",
   "description": "Provides a TLS-agnostic HTTP server and eliminates the redundancy in providing both secure and insecure servers.",
   "main": "httpx.js",
-  "dependencies": {
- },
+  "dependencies": {},
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,5 +18,13 @@
     "get"
   ],
   "author": "Nate Watson, as part of Team GOTO",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/natewatson999/httpx.git"
+  },
+  "bugs": {
+    "url": "https://github.com/natewatson999/httpx/issues"
+  },
+  "homepage": "https://github.com/natewatson999/httpx"
 }
