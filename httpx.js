@@ -119,4 +119,3 @@ httpx.get = function(getOptions, getBack) {
 	return req;
 };
 module.exports = exports = httpx;
-/*find alternate debugger*/
