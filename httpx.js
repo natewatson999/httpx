@@ -1,7 +1,7 @@
 /*
 Written by Nate Watson and Oluwafunmiwo Judah Sholola
 Released under MIT license. 
-Version: 0.1.0
+Version: 0.1.7
 */
 var http  = require("http"); 
 var https = require("https");
@@ -17,7 +17,7 @@ function createServer(config, procedure){
 		if (config.httpsPort) {
 			this.internalConfig.httpsPort = config.httpsPort;
 		}
-		this.internalConfig.httpsPort = 80;
+		this.internalConfig.httpPort = 80;
 		if (config.httpPort) {
 			this.internalConfig.httpPort = config.httpPort;
 		}
