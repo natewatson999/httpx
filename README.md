@@ -1,5 +1,5 @@
 # node-httpx
-node-httpx provides a nodejs library for managing http and https server at the same time. It also provides http and https requests.
+node-httpx provides a nodejs library for managing http and https servers at the same time. It also provides http and https requests.
 
 This module, httpx , is published under the MIT license. It was written by Nate Watson and Oluwafunmiwo Judah Sholola. 
 
@@ -21,7 +21,7 @@ npm install node-httpx
 
 ### Global install
 
-0. Make sure you have the right to make NPM installations. If you don't have them, get them.
+0. Make sure you have the right to make global NPM installations. If you don't have it, get it.
 
 1. Run the following command:
 
@@ -108,7 +108,7 @@ This is the configuration object for this server. The following members are requ
 * key : this is the private key used for dealing with https requests. REQUIRED.
 * cert : this is the certificate used for dealing with https requests. REQUIRED.
 * httpPort : the port for http traffic. Default: 80.
-* httpsPort : the port for https traffic. defualt: 443.
+* httpsPort : the port for https traffic. default: 443.
 * address : the address to listen to. default: "::", meaning everything from IPv4 and IPv6.
 
 ### httpx.createServer.listen
@@ -117,11 +117,11 @@ This is the configuration object for this server. The following members are requ
 workingServer.listen();
 ```
 
-This starts the servers. Note that this feature is still being wrapped up.
+This starts the servers. Note that this feature is still being improved.
 
 ### httpx.createServer callback
 
-req is the request. res is the response. This callback is identical to what is found in node.http and node.https
+req is the request. res is the response. This callback is identical to what is found in node.http and node.https.
 
 ### httpx.createServer.close()
 
@@ -129,7 +129,7 @@ req is the request. res is the response. This callback is identical to what is f
 workingServer.close(callback);
 ```
 
-This closes the http and https servers in this instance of an httpx server. Because of the http 1.1 and 2.0 specifications, this action is very prone to crashing. Use it at your own risk, and use it with a callback function.
+This closes the http and https servers in this instance of an httpx server. Because of the http 1.1 and 2.0 HTTP specifications, this action is very prone to causing crashes. Use it at your own risk, and use it with a callback function.
 
 ### httpx.createServer.setTimeout
 
@@ -181,7 +181,6 @@ This function is used to write context to a working httpx request object. This s
 
 This function states that everything has been sent that will be sent for this request. This should not be used in httpx.get.
 
-
 ### httpx.request config object
 
 * hostname : either a valid domain or IP address of the server being requested. REQUIRED.
@@ -189,7 +188,7 @@ This function states that everything has been sent that will be sent for this re
 * method : the HTTP method to be used. Default: "get".
 * httpsPort: the port for https requests. Default: 443.
 * httpPort: the port for http requests. Default: 80.
-Note: anything setting that exists in node.http or node.https also exists in these settings. These are just the only ones the code explicitly interacts with.
+Note: any setting that exists in node.http or node.https also exists in these settings. These are just the only ones the code explicitly interacts with.
 
 ### httpx.request callback function
 
@@ -220,10 +219,10 @@ This is emmited when a section of the response arrives properly at the client. S
 ### httpx.requeset.response.end
 
 ```
-res.on("end");
+res.on("end", callback);
 ```
 
-This is emmited when there is no more data that will come in the response.
+This is emmited when there is no more data that will come in the response. The callback function is required.
 
 ## httpx.get
 
