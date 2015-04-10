@@ -1,6 +1,6 @@
 {
   "name": "node-httpx",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "description": "Provides a TLS-agnostic HTTP server and eliminates the redundancy in providing both secure and insecure servers.",
   "main": "httpx.js",
   "dependencies": {},
