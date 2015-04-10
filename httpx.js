@@ -13,11 +13,15 @@ function createServer(config, procedure){
 		if (config.host) {
 			this.internalConfig.host = config.host;
 		}
-		this.internalConfig.httpServer = http.createServer(procedure);
 		this.internalConfig.httpsPort = 443;
 		if (config.httpsPort) {
 			this.internalConfig.httpsPort = config.httpsPort;
 		}
+		this.internalConfig.httpsPort = 80;
+		if (config.httpPort) {
+			this.internalConfig.httpPort = config.httpPort;
+		}
+		this.internalConfig.httpServer = http.createServer(procedure);
 		this.internalConfig.httpsServer = https.createServer(config, procedure);
 		this.internalConfig.httpServer.timeout = 0;
 		this.internalConfig.httpsServer.timeout = 0;

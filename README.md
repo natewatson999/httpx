@@ -92,7 +92,54 @@ Node-httpx provides http's status codes object:
 console.dir(httpx.STATUS_CODES);
 ```
 
+## httpx.createServer
+
+```
+httpx.createServer(config, function(req, res) {
+
+});
+```
+
+This follows the same general behavior as https.createServer.
+
+### httpx.createServer config
+
+This is the configuration object for this server. The following members are required:
+* key : this is the private key used for dealing with https requests. REQUIRED.
+* cert : this is the certificate used for dealing with https requests. REQUIRED.
+* httpPort : the port for http traffic. Default: 80.
+* httpsPort : the port for https traffic. defualt: 443.
+
+### httpx.createServer.listen
+
+```
+workingServer.listen();
+```
+
+This starts the servers. Note that this feature is still being wrapped up.
+
+### httpx.createServer callback
+
+req is the request. res is the response. This callback is identical to what is found in node.http and node.https
+
+### httpx.createServer.close()
+
+```
+workingServer.close(callback);
+```
+
+This closes the http and https servers in this instance of an httpx server. Because of the http 1.1 and 2.0 specifications, this action is very prone to crashing. Use it at your own risk, and use it with a callback function.
+
+### httpx.createServer.setTimeout
+
+```
+workingServer.setTimeout(time, callback);
+```
+
+Calling this function changes this.timeout to time, sets the timeouts of the internal servers to time, and calls the callback function.
+
 ## Specific Requests
+
 In addition to native request objects, node-httpx provides the request and get functions of the http and https modules. 
 
 | Function           | Treat As      | Documentation                                                          |
