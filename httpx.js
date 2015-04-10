@@ -21,6 +21,10 @@ function createServer(config, procedure){
 		if (config.httpPort) {
 			this.internalConfig.httpPort = config.httpPort;
 		}
+		this.internalConfig.workingAddress = "::";
+		if (config.address) {
+			this.internalConfig.workingAddress = config.address;
+		}
 		this.internalConfig.httpServer = http.createServer(procedure);
 		this.internalConfig.httpsServer = https.createServer(config, procedure);
 		this.internalConfig.httpServer.timeout = 0;
@@ -28,8 +32,8 @@ function createServer(config, procedure){
 		this.timeout = 0;
 	}
 createServer.prototype.listen = function(){
-	this.internalConfig.httpServer.listen(this.internalConfig.httpPort);
-	this.internalConfig.httpsServer.listen(this.internalConfig.httpsPort);
+	this.internalConfig.httpServer.listen(this.internalConfig.httpPort, this.internalConfig.workingAddress);
+	this.internalConfig.httpsServer.listen(this.internalConfig.httpsPort, this.internalConfig.workingAddress);
 };
 createServer.prototype.close = function(callback){
 	/*This function causes a crash if you use the keep-alive http parameter. But that's not a bug in this method. That's a bug in the HTTP and HTTPS modules, not this, so it won't be fixed. Also, it's your own damn fault for using keep-alive. ASSHOLE!*/

@@ -109,6 +109,7 @@ This is the configuration object for this server. The following members are requ
 * cert : this is the certificate used for dealing with https requests. REQUIRED.
 * httpPort : the port for http traffic. Default: 80.
 * httpsPort : the port for https traffic. defualt: 443.
+* address : the address to listen to. default: "::", meaning everything from IPv4 and IPv6.
 
 ### httpx.createServer.listen
 
