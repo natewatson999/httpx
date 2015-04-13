@@ -13,12 +13,15 @@ var testServer = httpx.createServer(config, function(req, res){
 	res.writeHead(200, {'Connection': 'close'}); 
 	res.write("Hello World! I provided this page with a single module that takes a single callback function, and works with both HTTP and HTTPS. But I don't get overtime, so screw you world!");
 	res.end();
-	testServer.close(function(){console.log("goodbye");});
+	testServer.close(function(){
+		console.log(req.url);
+		console.log("goodbye");
+	});
 });
 testServer.listen();
 
 var options = {};
-options.hostname = "encrypted.google.com";
+options.hostname = "www.google.com";
 options.path = "/";
 options.method = "get";
 var googleRequest = httpx.request(options, function(res){
@@ -28,6 +31,9 @@ var googleRequest = httpx.request(options, function(res){
 	});
 	res.on("end", function(){
 		console.log(answer);
+	});
+	res.on("timeout", function(){
+		console.log("timeout reached");
 	});
 }); 
 googleRequest.write("text");

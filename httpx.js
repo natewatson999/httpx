@@ -8,7 +8,6 @@ var https = require("https");
 var events = require("events");
 function createServer(config, procedure){
 		this.internalConfig = {};
-		this.internalConfig.httpPort = 80;
 		this.internalConfig.host = "INADDR_ANY";
 		if (config.host) {
 			this.internalConfig.host = config.host;
@@ -57,37 +56,57 @@ createServer.prototype.setTimeout = function(time, callback){
 };
 var httpx = {};
 function requestFunction(config, callback) {
-	if (!(config.httpsPort)) {
-		config.httpsPort = 443;
-	}
-	if (!(config.httpPort)) {
-		config.httpPort = 80;
-	}
-	config.port = config.httpsPort;
 	this.enableSecurity = true;
 	this.amOpen = true;
 	this.emitter = new events.EventEmitter();
 	this.httpsRequest = https.request(config, callback);
 	this.httpRequest = {};
-	this.httpsRequest.on("error", function(err) {
-		config.port = config.httpPort;
+	this.fallback = function(cause) {
 		this.enableSecurity = false;
 		this.httpRequest = http.request(config, callback);
-		this.httpRequest.on("error", function(error) {
-			this.emitter.emit("error", error);
-		});
+		this.fallbackFail = false;
+		var fallbackPointer = this;
 		this.httpRequest.on("data", function(data) {
-			this.emitter.emit("data", data);
+			fallbackPointer.emitter.emit("data", data);
 		});
 		this.httpRequest.on("end", function() {
-			this.emitter.emit("end");
+			fallbackPointer.emitter.emit("end");
+		});
+		this.httpRequest.on("error", function(error) {
+			if (fallbacPointer.fallbackFail == false) {
+				fallbacPointer.fallbackFail = false;
+				fallbackPointer.emitter.emit("error", error);
+			}
+		});
+		this.httpRequest.on("socket", function(backupSocket){
+			backupSocket.setTimeout(10000);
+			if (fallbackPointer.fallbackFail == false) {
+				fallbackPointer.emitter.emit("timeout");
+			}
+		});
+	};
+	this.switched = false;
+	var pointer = this;
+	this.httpsRequest.on("socket", function(socket){
+		socket.setTimeout(10000);
+		socket.on("timeout", function(){
+			if(false == pointer.switched) {
+				pointer.switched = true;
+				pointer.fallback("timeout");
+			}
 		});
 	});
+	this.httpsRequest.on("error", function(err) {
+		if(false == pointer.switched) {
+			pointer.switched = true;
+			pointer.fallback(err);
+		}
+	});
 	this.httpsRequest.on("data", function(data){
-		this.emitter.emit("data", data);
+		pointer.emitter.emit("data", data);
 	});
 	this.httpsRequest.on("end", function(){
-		this.emitter.emit("end");
+		pointer.emitter.emit("end");
 	});
 	callback(this.emitter);
 };
