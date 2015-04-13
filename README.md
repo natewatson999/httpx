@@ -186,8 +186,7 @@ This function states that everything has been sent that will be sent for this re
 * hostname : either a valid domain or IP address of the server being requested. REQUIRED.
 * path : the part of the URL that's not the port, hostname, or protocol. REQUIRED.
 * method : the HTTP method to be used. Default: "get".
-* httpsPort: the port for https requests. Default: 443.
-* httpPort: the port for http requests. Default: 80.
+* port : the port to be used. Default: 80/443
 Note: any setting that exists in node.http or node.https also exists in these settings. These are just the only ones the code explicitly interacts with.
 
 ### httpx.request callback function
@@ -200,7 +199,7 @@ function (res) {
 
 Res is an event emmiter that is emmited once per request.
 
-### httpx.requeset.response.err
+### httpx.request.response.err
 
 ```
 res.on("error", errObject);
@@ -208,7 +207,15 @@ res.on("error", errObject);
 
 This is emmited when both https.request and http.request failed with the given configuration. It contains the error object from node.http.
 
-### httpx.requeset.response.data
+### httpx.request.response.timeout
+
+```
+res.on("timeout", action);
+```
+
+This is emmited when the https attempt fails or times out, and the http request times out.
+
+### httpx.request.response.data
 
 ```
 res.on("data", segment);
@@ -216,7 +223,7 @@ res.on("data", segment);
 
 This is emmited when a section of the response arrives properly at the client. Segment is usually a string. 
 
-### httpx.requeset.response.end
+### httpx.request.response.end
 
 ```
 res.on("end", callback);
