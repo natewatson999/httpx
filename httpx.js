@@ -1,7 +1,6 @@
 /*
-Written by Nate Watson and Oluwafunmiwo Judah Sholola
+Written by Nate Watson and Oluwafunmiwo Judah Sholola. Copyright 2015 held by them.
 Released under MIT license. 
-Version: 0.1.7
 */
 var http  = require("http"); 
 var https = require("https");
@@ -30,28 +29,35 @@ function createServer(config, procedure){
 		this.internalConfig.httpsServer.timeout = 0;
 		this.timeout = 0;
 	}
-createServer.prototype.listen = function(){
-	this.internalConfig.httpServer.listen(this.internalConfig.httpPort, this.internalConfig.workingAddress);
-	this.internalConfig.httpsServer.listen(this.internalConfig.httpsPort, this.internalConfig.workingAddress);
+createServer.prototype.listen = function(callback){
+	var pointer = this;
+	var callbackPointer = callback;
+	this.internalConfig.httpServer.listen(this.internalConfig.httpPort, this.internalConfig.workingAddress, function(){
+		pointer.internalConfig.httpsServer.listen(pointer.internalConfig.httpsPort, pointer.internalConfig.workingAddress, function(){
+			if (callbackPointer) {
+				callbackPointer();
+			}
+		});
+	});
 };
 createServer.prototype.close = function(callback){
 	/*This function causes a crash if you use the keep-alive http parameter. But that's not a bug in this method. That's a bug in the HTTP and HTTPS modules, not this, so it won't be fixed. Also, it's your own damn fault for using keep-alive. ASSHOLE!*/
-	var killServer = function( server, procedure) {
-		if (!server) {
-			procedure();
-			return;
-		}
-		//console.dir(server);
-		server.close(procedure);
-		return;
-	};
-	killServer(this.internalConfig.httpsServer, killServer(this.internalConfig.httpServer, callback));
-	return;
+	var workingInsecureServer = this.internalConfig.httpServer;
+	var workingSecureServer = this.internalConfig.httpsServer;
+	var callbackPointer = callback;
+	workingInsecureServer.close(function(){
+		workingSecureServer.close(function(){
+			if (callbackPointer) {
+				callbackPointer();
+			}
+		});
+	});
 };
 createServer.prototype.setTimeout = function(time, callback){
 	this.timeout = time;
+	var httpsServer = this.internalConfig.httpsServer;
 	this.internalConfig.httpServer.setTimeout(time, function(){
-		this.internalConfig.httpsServer.setTimeout(time, callback);
+		httpsServer.setTimeout(time, callback);
 	});
 };
 var httpx = {};

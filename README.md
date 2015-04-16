@@ -129,7 +129,7 @@ req is the request. res is the response. This callback is identical to what is f
 workingServer.close(callback);
 ```
 
-This closes the http and https servers in this instance of an httpx server. Because of the http 1.1 and 2.0 HTTP specifications, this action is very prone to causing crashes. Use it at your own risk, and use it with a callback function.
+This closes the http and https servers in this instance of an httpx server. Because of the HTTP 1.1 and 2.0 specifications, this action is very prone to causing crashes. Use it at your own risk. It can be used with a callback function.
 
 ### httpx.createServer.setTimeout
 
@@ -137,7 +137,7 @@ This closes the http and https servers in this instance of an httpx server. Beca
 workingServer.setTimeout(time, callback);
 ```
 
-Calling this function changes this.timeout to time, sets the timeouts of the internal servers to time, and calls the callback function.
+Calling this function changes this.timeout to time, sets the timeouts of the internal servers to time, and calls the callback function. The default is 0.
 
 ## Specific Requests
 
